@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
 
-function App() {
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { movies$ } from './movies.js'
+import Movie from './components/MovieCard.js'
+
+const App = () => {
+  const [movies, setMovies] = useState()
+
+  movies$.then((value) => {
+    setMovies(value)
+  })
+
+  if(!movies) {
+    return <h1>Chargement...</h1>
+  }
+
+  // console.log(movies)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container my-3'>
+      <div className='row'>
+        {movies.map(element => {
+          return(
+            <Movie 
+              key={element.id}
+              title={element.title}
+              category={element.category}
+              likes={element.likes}
+              dislikes={element.dislikes}
+            />
+          )
+        })}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
