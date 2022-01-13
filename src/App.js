@@ -8,6 +8,7 @@ import Movie from './components/MovieCard.js'
 const App = () => {
   const [movies, setMovies] = useState()
 
+
   movies$.then((value) => {
     setMovies(value)
   })
@@ -15,7 +16,7 @@ const App = () => {
   if(!movies) {
     return <h1>Chargement...</h1>
   }
-
+  
   // console.log(movies)
   return (
     <div className='container my-3'>
