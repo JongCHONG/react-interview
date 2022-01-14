@@ -60,7 +60,7 @@ const Pagination = (props) => {
     }
   }
 
-  // console.log("sorted", sortedArray)
+  console.log("sorted", sortedArray)
   console.log("pagination", paginationArray)
   return (
     <>
