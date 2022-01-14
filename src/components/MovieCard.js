@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import styled from 'styled-components'
 import image from '../images/movieImage.jpg'
+// import Icon from './Icon'
 
 const Title = styled.h2`
   font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+  align-items: center;
 `
 const Image = styled.div`
   height: 250px;
@@ -15,18 +21,23 @@ const Image = styled.div`
   background-image: url(${image});
 `
 const DislikeBar = styled.div`
-  height: 10px;
+  height: 5px;
   width: 100%;
   position: relative;
   background-color: yellow;
 `
 const LikeBar = styled.div`
-  height: 10px;
-  width: 50%;
+  height: 5px;
   position: absolute;
   background-color: red;
+  transition: width 1s;
+  width: ${props => props.ratio}%
 `
-const Like = styled.i`
+const LikeDislike = styled.div`
+  display: flex;
+  justify-content: space-around;
+`
+const Icon = styled.i`
     font-size : 30px;
     cursor : pointer;
     transition : all ease 0.4s;
@@ -36,13 +47,9 @@ const Like = styled.i`
 `
 
 const Movie = (props) => {
-  const { title, category, likes, dislikes } = props
-  const [ratio, setRatio] = useState(null)
-
-  const handleLikeOnClick = () => {
-    const result = ((likes - dislikes)/(likes + dislikes))*100
-    console.log(result);
-  }
+  const { id, title, category, likes, dislikes, handleLike, handleDislike, handleDelete } = props
+  // const [ratio, setRatio] = useState(null)
+  const ratio = ((likes)/(likes + dislikes))* 100
 
   // console.log(ratio)
   return (
@@ -51,13 +58,26 @@ const Movie = (props) => {
         <Image/>
         <Title>
           {title}
+          <Icon
+            className="far fa-trash-alt" 
+            onClick={() => handleDelete(id)} 
+          /> 
         </Title>
         <p>Category : {category}</p>
-        <p>{likes}</p>
-        <p>{dislikes}</p>
-        <Like className="far fa-thumbs-up" onClick={handleLikeOnClick()}/>
+        <LikeDislike>
+          <p>{likes}</p>
+          <Icon
+            className="far fa-thumbs-up" 
+            onClick={() => handleLike(id)} 
+          /> 
+          <p>{dislikes}</p>
+          <Icon
+            className="far fa-thumbs-down" 
+            onClick={() => handleDislike(id)} 
+          /> 
+        </LikeDislike>
         <DislikeBar>
-          <LikeBar />
+          <LikeBar ratio={ratio} />
         </DislikeBar>
       </div>
     </div>
