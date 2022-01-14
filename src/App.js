@@ -7,10 +7,13 @@ import { movies$ } from './movies.js'
 
 import Movie from './components/MovieCard.js'
 import Pagination from './components/Pagination.js'
+import Button from './components/Button.js'
 
 const App = () => {
   const [movies, setMovies] = useState()
   const [selected, setSelected] = useState([])
+  const [sortedArray, setSortedArray] = useState(movies)
+  const [pagination, setPagination] = useState(false)
   let options = []
   let selectedMovies = []
 
@@ -69,26 +72,27 @@ const App = () => {
     }
   }
 
-  const newArray = (myArray, size) => {
+  const triArray = (size) => {
     let tempArray = []
-    let arraySlice =[]
-    for (let index = 0; index < myArray.length; index+=size) {
-      arraySlice = myArray.slice(index, index+size)
+    let arraySlice = []
+    for (let index = 0; index < movies.length; index+=size) {
+      arraySlice = movies.slice(index, index+size)
       tempArray.push(arraySlice)
     }
-    return tempArray
+    setPagination(true)
+    setSortedArray(tempArray)
   }
 
-  const result = newArray(movies, 4)
-
-  console.log(result)
   return (
     <div className='container my-3'>
-      <div className='row'>
+      <div className='row align-items-center'>
         <div className='col-6'>
           <h1>Movies</h1>
         </div>
-        <div className='col-6'>
+        <div className='col-6 d-flex justify-content-end'>
+          <Button size="4" triArray={triArray}/>
+          <Button size="8" triArray={triArray}/>
+          <Button size="12"triArray={triArray}/>
         </div>
       </div>
 
@@ -100,7 +104,7 @@ const App = () => {
         hasSelectAll={false}
       />
       <div className='row'>
-        {selectedMovies.length !== 0 ?
+        {selectedMovies.length !== 0 && !pagination &&
           selectedMovies.map(element => {
             return(
               <Movie 
@@ -115,7 +119,9 @@ const App = () => {
                 handleDelete={handleDelete}
               />
             )
-          }) :
+          })
+        }
+        {selectedMovies.length === 0 && !pagination &&
           movies.map(element => {
             return(
               <Movie 
@@ -130,9 +136,17 @@ const App = () => {
                 handleDelete={handleDelete}
               />
             )
-          })}
+          })
+        }
+        {pagination &&
+          <Pagination 
+            handleLike={handleLike}
+            handleDislike={handleDislike}
+            handleDelete={handleDelete}
+            sortedArray={sortedArray}
+          />
+        }
       </div>
-      <Pagination />
     </div>
   )
 }
