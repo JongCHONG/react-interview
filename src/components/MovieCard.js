@@ -24,12 +24,12 @@ const DislikeBar = styled.div`
   height: 5px;
   width: 100%;
   position: relative;
-  background-color: yellow;
+  background-color: red;
 `
 const LikeBar = styled.div`
   height: 5px;
   position: absolute;
-  background-color: red;
+  background-color: #6d1d1d;
   transition: width 1s;
   width: ${props => props.ratio}%
 `
@@ -42,7 +42,7 @@ const Icon = styled.i`
     cursor : pointer;
     transition : all ease 0.4s;
     &:hover {
-        color : #81ecec;
+        color : red;
     }
 `
 

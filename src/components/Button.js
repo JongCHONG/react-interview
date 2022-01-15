@@ -5,7 +5,7 @@ const Button = ({ size, triArray }) => {
     <div>
       <button 
         type="button" 
-        className="ms-2 btn btn-outline-primary" 
+        className="ms-2 btn btn-outline-light" 
         onClick={() => triArray(Number(size))}
       >
         {size}

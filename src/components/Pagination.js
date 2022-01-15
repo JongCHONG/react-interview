@@ -22,7 +22,6 @@ const Pagination = (props) => {
       likes
     }
     setPaginationArray(array)
-    console.log(array)
   }
 
   const handleDislike = (id) => {
@@ -35,7 +34,6 @@ const Pagination = (props) => {
       dislikes
     }
     setPaginationArray(array)
-    console.log(array)
   }
 
   const handleDelete = (id) => {
@@ -80,20 +78,20 @@ const Pagination = (props) => {
       )
     })}
       <div className='d-flex justify-content-end'>
-      <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example">
           <ul className="pagination">
             <li className="page-item">
-              <button className="page-link" onClick={handlePrevious}>Previous</button>
+              <button className="btn btn-outline-light" onClick={handlePrevious}>Previous</button>
             </li>
             {numPage.map(element => {
               return (
                 <li key={element} className="page-item">
-                  <button className="page-link" onClick={() => handlePage(element)}>{element}</button>
+                  <button className="btn btn-outline-light" onClick={() => handlePage(element)}>{element}</button>
                 </li>
               )
             })}
             <li className="page-item">
-              <button className="page-link" onClick={handleNext}>Next</button>
+              <button className="btn btn-outline-light" onClick={handleNext}>Next</button>
             </li>
           </ul>
         </nav>

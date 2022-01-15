@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { MultiSelect } from "react-multi-select-component"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
 
 import { movies$ } from './movies.js'
 
@@ -84,68 +85,67 @@ const App = () => {
   }
 
   return (
-    <div className='container my-3'>
-      <div className='row align-items-center'>
-        <div className='col-6'>
-          <h1>Movies</h1>
+    <div className='background'>
+      <div className='container py-3'>
+        <div className='row align-items-center'>
+          <div className='col-6'>
+            <h1 className='text-white'>Movies</h1>
+          </div>
+          <div className='col-6 d-flex justify-content-end'>
+            <Button size="4" triArray={triArray}/>
+            <Button size="8" triArray={triArray}/>
+            <Button size="12"triArray={triArray}/>
+          </div>
         </div>
-        <div className='col-6 d-flex justify-content-end'>
-          <Button size="4" triArray={triArray}/>
-          <Button size="8" triArray={triArray}/>
-          <Button size="12"triArray={triArray}/>
-        </div>
-      </div>
 
-      <MultiSelect
-        options={options}
-        value={selected}
-        onChange={setSelected}
-        labelledBy="Select"
-        hasSelectAll={false}
-      />
-      <div className='row'>
-        {selectedMovies.length !== 0 && !pagination &&
-          selectedMovies.map(element => {
-            return(
-              <Movie 
-                key={element.id}
-                id={element.id}
-                title={element.title}
-                category={element.category}
-                likes={element.likes}
-                dislikes={element.dislikes}
-                handleLike={handleLike}
-                handleDislike={handleDislike}
-                handleDelete={handleDelete}
-              />
-            )
-          })
-        }
-        {selectedMovies.length === 0 && !pagination &&
-          movies.map(element => {
-            return(
-              <Movie 
-                key={element.id}
-                id={element.id}
-                title={element.title}
-                category={element.category}
-                likes={element.likes}
-                dislikes={element.dislikes}
-                handleLike={handleLike}
-                handleDislike={handleDislike}
-                handleDelete={handleDelete}
-              />
-            )
-          })
-        }
-        {pagination &&
-          <Pagination 
-            handleLike={handleLike}
-            handleDislike={handleDislike}
-            handleDelete={handleDelete}
-            sortedArray={sortedArray}
-          />
-        }
+        <MultiSelect
+          options={options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy="Select"
+          hasSelectAll={false}
+        />
+        <div className='row'>
+          {selectedMovies.length !== 0 && !pagination &&
+            selectedMovies.map(element => {
+              return(
+                <Movie 
+                  key={element.id}
+                  id={element.id}
+                  title={element.title}
+                  category={element.category}
+                  likes={element.likes}
+                  dislikes={element.dislikes}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  handleDelete={handleDelete}
+                />
+              )
+            })
+          }
+          {selectedMovies.length === 0 && !pagination &&
+            movies.map(element => {
+              return(
+                <Movie 
+                  key={element.id}
+                  id={element.id}
+                  title={element.title}
+                  category={element.category}
+                  likes={element.likes}
+                  dislikes={element.dislikes}
+                  handleLike={handleLike}
+                  handleDislike={handleDislike}
+                  handleDelete={handleDelete}
+                />
+              )
+            })
+          }
+          {pagination &&
+            <Pagination 
+              sortedArray={sortedArray}
+            />
+          }
+        </div>
       </div>
     </div>
   )
